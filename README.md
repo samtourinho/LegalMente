@@ -1,0 +1,2 @@
+# LegalMente
+Projeto de Software
