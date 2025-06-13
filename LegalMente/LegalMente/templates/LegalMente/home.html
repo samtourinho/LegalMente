@@ -1,0 +1,113 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LegalMente</title>
+  <link rel="stylesheet" href="{% static 'css/LegalMente/styles.css' %}">
+</head>
+<body>
+
+<nav class="navbar-pro">
+  <div class="logo">LEGALMENTE</div>
+  <ul class="nav-links">
+    <li class="dropdown">
+      <a href="#" onclick="toggleDropdown('civil',event)">Civil</a>
+      <div class="dropdown-content" id="civil">
+        <div class="submenu">
+          <a href="{% url 'civil_smartcards' %}">SmartCards</a>
+          <a href="{% url 'civil_questoes' %}">Questões</a>
+        </div>
+      </div>
+    </li>
+    <li class="dropdown">
+      <a href="#" onclick="toggleDropdown('contencioso',event)">Contencioso</a>
+      <div class="dropdown-content" id="contencioso">
+        <div class="submenu">
+          <a href="{% url 'contencioso_smartcards' %}">SmartCards</a>
+          <a href="{% url 'contencioso_questoes' %}">Questões</a>
+        </div>
+      </div>
+    </li>
+    <li class="dropdown">
+      <a href="#" onclick="toggleDropdown('tributario',event)">Tributário</a>
+      <div class="dropdown-content" id="tributario">
+        <div class="submenu">
+          <a href="{% url 'tributario_smartcards' %}">SmartCards</a>
+          <a href="{% url 'tributario_questoes' %}">Questões</a>
+        </div>
+      </div>
+    </li>
+    <li class="dropdown">
+      <a href="#" onclick="toggleDropdown('penal',event)">Penal</a>
+      <div class="dropdown-content" id="penal">
+        <div class="submenu">
+          <a href="{% url 'penal_smartcards' %}">SmartCards</a>
+          <a href="{% url 'penal_questoes' %}">Questões</a>
+        </div>
+      </div>
+    </li>
+  </ul>
+</nav>
+
+<div class="container">
+  <div class="container-one">
+    <img src="{% static 'img/LegalMente/logo.png' %}" alt="Logo" class="image-style">
+  </div>
+  <div class="container-inside">
+    <p class="container-inside-text" id="welcomeText">Olá, seja bem vindo ao LegalMente!</p>
+
+    <input 
+      type="text" 
+      id="nameInput" 
+      placeholder="Digite seu nome completo" 
+      class="container-inside-text-input" />
+
+    <button class="button-sign" id="enterButton" onclick="setName()">Entrar</button>
+  </div>
+</div>
+
+<script>
+  function toggleDropdown(id, event) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    const allDropdowns = document.querySelectorAll('.dropdown-content');
+    allDropdowns.forEach(drop => {
+      if (drop.id !== id) {
+        drop.style.display = 'none';
+      }
+    });
+
+    const target = document.getElementById(id);
+    target.style.display = target.style.display === 'block' ? 'none' : 'block';
+  }
+
+  document.addEventListener('click', function () {
+    const dropdowns = document.querySelectorAll('.dropdown-content');
+    dropdowns.forEach(drop => {
+      drop.style.display = 'none';
+    });
+  });
+
+  const dropdowns = document.querySelectorAll('.dropdown-content');
+  dropdowns.forEach(drop => {
+    drop.addEventListener('click', function (e) {
+      e.stopPropagation();
+    });
+  });
+
+  // NOVA FUNÇÃO PARA MUDAR SAUDAÇÃO E ESCONDER CAMPOS
+  function setName() {
+    const name = document.getElementById('nameInput').value.trim();
+    if (name !== "") {
+      document.getElementById('welcomeText').textContent = `Olá, ${name}!`;
+      document.getElementById('nameInput').style.display = 'none';
+      document.getElementById('enterButton').style.display = 'none';
+    }
+  }
+</script>
+
+</body>
+</html>

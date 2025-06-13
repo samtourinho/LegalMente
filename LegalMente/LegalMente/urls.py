@@ -16,8 +16,21 @@ Including another URLconf
 """
 
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from . import views
+from .views import home_view
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
+    path('admin/', admin.site.urls),
+    path('', home_view, name='home'),
+    path('usuarios/', include('usuarios.urls')),  # tudo do app de login/backend
+    path('civil/smartcards/', views.civil_smartcards, name='civil_smartcards'),
+    path('civil/questoes/', views.civil_questoes, name='civil_questoes'),
+    path('contencioso/smartcards/', views.contencioso_smartcards, name='contencioso_smartcards'),
+    path('contencioso/questoes/', views.contencioso_questoes, name='contencioso_questoes'),
+    path('penal/smartcards/', views.penal_smartcards, name='penal_smartcards'),
+    path('penal/questoes/', views.penal_questoes, name='penal_questoes'),
+    path('tributario/smartcards/', views.tributario_smartcards, name='tributario_smartcards'),
+    path('tributario/questoes/', views.tributario_questoes, name='tributario_questoes'),
 ]
+

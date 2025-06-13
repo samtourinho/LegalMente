@@ -1,0 +1,129 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: Arial, sans-serif;
+    background-color: rgba(1, 7, 34, 1);
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+
+  .container-one {
+    flex: 1;
+    padding-top: 0px;
+    background-color: rgba(1, 7, 34, 1);
+  }
+
+  .image-style {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .container-inside {
+    height: 40%;
+    background-color: rgba(1, 7, 34, 1);
+    text-align: center;
+    color: white;
+  }
+
+  .container-inside-text {
+    font-size: 20px;
+    margin-top: 20px;
+  }
+
+  .container-inside-text-input {
+    width: 80%;
+    height: 40px;
+    border: 1px solid white;
+    border-radius: 5px;
+    margin: 30px auto;
+    padding-left: 10px;
+    color: white;
+    background-color: transparent;
+  }
+
+  .button-sign {
+    background-color: rgba(173, 216, 230, 1);
+    width: 80%;
+    height: 40px;
+    border-radius: 20px;
+    margin-top: 20px;
+    color: rgba(1, 7, 34, 1);
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+  }
+
+  .button-sign:hover {
+    opacity: 0.8;
+  }
+  .navbar-pro {
+background-color: rgba(1, 7, 34, 1);
+padding: 10px 30px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+position: fixed;
+top: 0;
+width: 100%;
+z-index: 9999;
+}
+
+.logo {
+color: #add8e6;
+font-size: 20px;
+font-weight: bold;
+letter-spacing: 1px;
+}
+
+.nav-links {
+list-style: none;
+display: flex;
+gap: 30px;
+}
+
+.nav-links li {
+position: relative;
+}
+
+.nav-links a {
+color: white;
+text-decoration: none;
+font-size: 16px;
+padding: 8px;
+cursor: pointer;
+}
+
+.nav-links a:hover {
+color: #add8e6;
+}
+
+.dropdown-content {
+display: none;
+position: absolute;
+top: 35px;
+left: 10px;
+background-color: rgba(0, 0, 50, 0.95);
+padding: 10px;
+border-radius: 6px;
+box-shadow: 0 0 10px rgba(173, 216, 230, 0.5);
+min-width: 150px;
+}
+
+.submenu a {
+display: block;
+padding: 8px 10px;
+color: #add8e6;
+}
+
+.submenu a:hover {
+background-color: rgba(255, 255, 255, 0.05);
+}
