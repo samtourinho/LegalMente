@@ -32,5 +32,6 @@ urlpatterns = [
     path('penal/questoes/', views.penal_questoes, name='penal_questoes'),
     path('tributario/smartcards/', views.tributario_smartcards, name='tributario_smartcards'),
     path('tributario/questoes/', views.tributario_questoes, name='tributario_questoes'),
+    path('questoes/', include('questoes.urls')),
 ]
 

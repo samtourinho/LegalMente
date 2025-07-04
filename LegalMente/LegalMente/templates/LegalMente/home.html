@@ -6,107 +6,116 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LegalMente</title>
   <link rel="stylesheet" href="{% static 'css/LegalMente/styles.css' %}">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+    .navbar-pro {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 40px;
+    }
+    .nav-left {
+      display: flex;
+      align-items: center;
+    }
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: white;
+    }
+    .user-greeting {
+      margin-left: 15px;
+      color: white;
+      font-size: 1rem;
+    }
+    .nav-links {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      flex: 1;
+      gap: 30px;
+      margin: 0;
+      padding: 0;
+    }
+    .nav-links li {
+      position: relative;
+    }
+    .login-button {
+      background-color: #ffffff22;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-weight: bold;
+    }
+    .login-button a {
+      color: white;
+      text-decoration: none;
+    }
+    .login-button a:hover {
+      text-decoration: underline;
+    }
+    .container {
+      min-height: calc(100vh - 100px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: url("{% static 'img/LegalMente/logo.png' %}") no-repeat center center;
+      background-size: cover;
+    }
+  </style>
 </head>
 <body>
 
 <nav class="navbar-pro">
-  <div class="logo">LEGALMENTE</div>
+  <div class="nav-left">
+    <div class="logo">LEGALMENTE</div>
+    {% if user.is_authenticated %}
+      <div class="user-greeting">Olá, {{ user.username }}</div>
+    {% endif %}
+  </div>
   <ul class="nav-links">
-    <li class="dropdown">
-      <a href="#" onclick="toggleDropdown('civil',event)">Civil</a>
-      <div class="dropdown-content" id="civil">
-        <div class="submenu">
-          <a href="{% url 'civil_smartcards' %}">SmartCards</a>
-          <a href="{% url 'civil_questoes' %}">Questões</a>
-        </div>
+  <li><a href="/questoes/direito-administrativo/flashcard/">Administrativo</a></li>
+  <li><a href="/questoes/direito-civil/flashcard/">Civil</a></li>
+  <li><a href="/questoes/direito-constitucional/flashcard/">Constitucional</a></li>
+  <li><a href="/questoes/direito-penal/flashcard/">Penal</a></li>
+  <li><a href="/questoes/direito-processual-civil/flashcard/">Processual Civil</a></li>
+  <li><a href="/questoes/direito-processual-penal/flashcard/">Processual Penal</a></li>
+</ul>
+  <div>
+    {% if user.is_authenticated %}
+      <div class="login-button">
+        <form method="post" action="{% url 'logout' %}" style="display: inline;">
+          {% csrf_token %}
+          <button type="submit" class="login-button" style="all: unset; cursor: pointer;">
+            Sair
+          </button>
+        </form>
       </div>
-    </li>
-    <li class="dropdown">
-      <a href="#" onclick="toggleDropdown('contencioso',event)">Contencioso</a>
-      <div class="dropdown-content" id="contencioso">
-        <div class="submenu">
-          <a href="{% url 'contencioso_smartcards' %}">SmartCards</a>
-          <a href="{% url 'contencioso_questoes' %}">Questões</a>
-        </div>
+    {% else %}
+      <div class="login-button">
+        <a href="{% url 'login' %}">Login</a>
       </div>
-    </li>
-    <li class="dropdown">
-      <a href="#" onclick="toggleDropdown('tributario',event)">Tributário</a>
-      <div class="dropdown-content" id="tributario">
-        <div class="submenu">
-          <a href="{% url 'tributario_smartcards' %}">SmartCards</a>
-          <a href="{% url 'tributario_questoes' %}">Questões</a>
-        </div>
-      </div>
-    </li>
-    <li class="dropdown">
-      <a href="#" onclick="toggleDropdown('penal',event)">Penal</a>
-      <div class="dropdown-content" id="penal">
-        <div class="submenu">
-          <a href="{% url 'penal_smartcards' %}">SmartCards</a>
-          <a href="{% url 'penal_questoes' %}">Questões</a>
-        </div>
-      </div>
-    </li>
-  </ul>
+    {% endif %}
+  </div>
 </nav>
 
-<div class="container">
-  <div class="container-one">
-    <img src="{% static 'img/LegalMente/logo.png' %}" alt="Logo" class="image-style">
-  </div>
-  <div class="container-inside">
-    <p class="container-inside-text" id="welcomeText">Olá, seja bem vindo ao LegalMente!</p>
 
-    <input 
-      type="text" 
-      id="nameInput" 
-      placeholder="Digite seu nome completo" 
-      class="container-inside-text-input" />
-
-    <button class="button-sign" id="enterButton" onclick="setName()">Entrar</button>
-  </div>
-</div>
+<div class="container"></div>
 
 <script>
   function toggleDropdown(id, event) {
     event.preventDefault();
     event.stopPropagation();
-
-    const allDropdowns = document.querySelectorAll('.dropdown-content');
-    allDropdowns.forEach(drop => {
-      if (drop.id !== id) {
-        drop.style.display = 'none';
-      }
-    });
-
-    const target = document.getElementById(id);
-    target.style.display = target.style.display === 'block' ? 'none' : 'block';
+    const all = document.querySelectorAll('.dropdown-content');
+    all.forEach(d => { if(d.id !== id) d.style.display = 'none'; });
+    const tgt = document.getElementById(id);
+    tgt.style.display = tgt.style.display==='block'?'none':'block';
   }
-
-  document.addEventListener('click', function () {
-    const dropdowns = document.querySelectorAll('.dropdown-content');
-    dropdowns.forEach(drop => {
-      drop.style.display = 'none';
-    });
-  });
-
-  const dropdowns = document.querySelectorAll('.dropdown-content');
-  dropdowns.forEach(drop => {
-    drop.addEventListener('click', function (e) {
-      e.stopPropagation();
-    });
-  });
-
-  // NOVA FUNÇÃO PARA MUDAR SAUDAÇÃO E ESCONDER CAMPOS
-  function setName() {
-    const name = document.getElementById('nameInput').value.trim();
-    if (name !== "") {
-      document.getElementById('welcomeText').textContent = `Olá, ${name}!`;
-      document.getElementById('nameInput').style.display = 'none';
-      document.getElementById('enterButton').style.display = 'none';
-    }
-  }
+  document.addEventListener('click', () => document.querySelectorAll('.dropdown-content').forEach(d=>d.style.display='none'));
+  document.querySelectorAll('.dropdown-content').forEach(d=>d.addEventListener('click', e=>e.stopPropagation()));
 </script>
 
 </body>

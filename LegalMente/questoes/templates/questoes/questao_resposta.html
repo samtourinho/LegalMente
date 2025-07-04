@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Resultado</title>
+  <style>
+    body { background-color: #0a0a23; color: #f0f0f0; font-family: 'Segoe UI', sans-serif; padding: 40px; }
+    .feedback { padding: 20px; margin-bottom: 30px; border-radius: 8px; background-color: #1c1c3a; }
+    .correta { color: #00e676; }
+    .incorreta { color: #ff5252; }
+    .botao {
+      margin-top: 30px;
+      padding: 10px 20px;
+      background-color: #4dd0e1;
+      color: black;
+      font-weight: bold;
+      text-decoration: none;
+      border-radius: 6px;
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>{{ questao.materia }} - Resultado</h1>
+
+  <div class="feedback">
+    <p><strong>Enunciado:</strong> {{ questao.enunciado }}</p>
+    <p>
+      <strong>Sua resposta:</strong>
+      <span class="{% if acertou %}correta{% else %}incorreta{% endif %}">
+        {{ resposta_dada }} - {% if acertou %}✔ Correta{% else %}✘ Incorreta{% endif %}
+      </span>
+    </p>
+    <p><strong>Resposta correta:</strong> {{ resposta_correta }}</p>
+  </div>
+
+  <form method="get" action="{% url 'questao_aleatoria' materia_slug %}">
+    <button class="botao" type="submit">Próxima questão</button>
+  </form>
+
+</body>
+</html>

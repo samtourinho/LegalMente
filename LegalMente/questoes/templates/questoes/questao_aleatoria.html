@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Questão Aleatória - {{ questao.materia }}</title>
+  <style>
+    body {
+      background-color: #0a0a23;
+      color: #f0f0f0;
+      font-family: 'Segoe UI', sans-serif;
+      padding: 40px;
+    }
+
+    h1 {
+      color: #4dd0e1;
+    }
+
+    .questao {
+      background-color: #1c1c3a;
+      padding: 20px;
+      margin-bottom: 25px;
+      border-radius: 8px;
+    }
+
+    .alternativas {
+      margin-top: 20px;
+    }
+
+    .alternativas label {
+      display: block;
+      margin: 8px 0;
+      cursor: pointer;
+    }
+
+    input[type="radio"] {
+      margin-right: 10px;
+      accent-color: #4dd0e1;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #4dd0e1;
+      color: black;
+      font-weight: bold;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .btn-voltar {
+      display: inline-block;
+      margin-top: 40px;
+      padding: 10px 18px;
+      background-color: #4dd0e1;
+      color: black;
+      font-weight: bold;
+      border-radius: 6px;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>{{ questao.materia }} - Questão Aleatória</h1>
+
+  <form method="post" class="questao">
+    {% csrf_token %}
+    <p><strong>{{ questao.enunciado }}</strong></p>
+
+    <div class="alternativas">
+      {% for alt in questao.alternativas_list %}
+        <label>
+          <input type="radio" name="resposta" value="{{ alt|slice:":1" }}" required>
+          {{ alt }}
+        </label>
+      {% endfor %}
+    </div>
+
+    <input type="hidden" name="questao_id" value="{{ questao.id }}">
+
+    <button type="submit">Responder</button>
+  </form>
+
+  <a href="/" class="btn-voltar">← Voltar para a Home</a>
+
+</body>
+</html>
